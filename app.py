@@ -253,7 +253,8 @@ with st.sidebar:
     )
 
     if ai_provider == "Google Gemini":
-        model_choice = st.selectbox("분석 모델", ["gemini-2.5-flash", "gemini-2.5-pro"], index=1)
+        # 💡 index=0으로 변경하여 gemini-2.5-flash가 기본값으로 선택되도록 수정
+        model_choice = st.selectbox("분석 모델", ["gemini-2.5-flash", "gemini-2.5-pro"], index=0)
     else:
         model_choice = st.selectbox("분석 모델", ["google/gemma-2-27b-it"], index=0)
 
