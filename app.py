@@ -270,7 +270,7 @@ with tab1:
         product_name_input = st.text_input("제품명을 입력하세요", placeholder="")
         uploaded_file = None
 
-    product_details = st.text_area("가격, 용량(중량), 주 소비 고객층에 대해 아시는 정보나 의견을 적어주세요 (선택사항)", placeholder="")
+    product_details = st.text_area("가격, 용량(중량), 소비층에 대한정보나 의견을 적어주세요 (선택사항)", placeholder="")
 
     if st.button("분석 시작"):
         final_product_name = get_standard_name(product_name_input)
