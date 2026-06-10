@@ -240,7 +240,7 @@ def call_pinktax_api(product_name, product_details, image_bytes, mime_type, ai_p
 # --- 메인 웹 화면 구성 ---
 st.title("PINK-Check AI")
 
-st.markdown("<h4 style='font-weight: 500; color: #555555; margin-bottom: 15px;'>AI를 활용한 젠더 마케팅 판별 시스템</h4>", unsafe_allow_html=True)
+st.markdown("<h4 style='font-weight: 500; color: #555555; margin-bottom: 15px;'>AI 활용 젠더 마케팅 판별 시스템</h4>", unsafe_allow_html=True)
 
 st.markdown("""
 <div style="background-color: #FFF5F7; border: 1px solid #FF1493; border-left: 6px solid #FF1493; padding: 16px; border-radius: 6px; margin-top: 10px; margin-bottom: 20px;">
@@ -262,18 +262,18 @@ with st.sidebar:
     st.markdown("---")
 
     ai_provider = st.selectbox(
-        "메인 AI 엔진 선택 (실시간 구글링은 Google Gemini 권장)",
+        "메인 AI 엔진 선택 (실시간 검색은 Gemini 권장)",
         ["Google Gemini", "OpenRouter (Gemma 2)"]
     )
 
     if ai_provider == "Google Gemini":
         # 🛠️ index를 1에서 0으로 변경하여 gemini-2.5-flash가 기본으로 열리도록 수정
-        model_choice = st.selectbox("분석 모델", ["gemini-2.5-flash", "gemini-2.5-pro"], index=0)
+        model_choice = st.selectbox("분석 모델", ["gemini-2.5-flash (빠른 모델)", "gemini-2.5-pro (정확한 모델)"], index=0)
     else:
         model_choice = st.selectbox("분석 모델", ["google/gemma-2-27b-it"], index=0)
 
 # 화면 탭 구성
-tab1, tab2, tab3 = st.tabs(["제품 판별기", "판독 기록", "판별 기준 안내"])
+tab1, tab2, tab3 = st.tabs(["제품 판독", "판독 기록", "판독 기준 안내"])
 
 # --- 1번 탭: 제품 판별기 ---
 with tab1:
@@ -362,8 +362,8 @@ with tab1:
 
 # --- 2번 탭: 판독 기록 히스토리 ---
 with tab2:
-    st.header("실시간 판독 기록 히스토리")
-    st.write("본 서비스 전체 사용자가 실시간으로 분석한 빅데이터 내역이 공유되어 누적됩니다.")
+    st.header("판독 기록")
+    st.write("AI가 분석한 내역이 기록됩니다.")
 
     history_to_display = []
     if conn is not None:
@@ -376,7 +376,7 @@ with tab2:
         history_to_display = list(st.session_state.history)
 
     if not history_to_display:
-        st.info("아직 전역 데이터베이스에 누적된 분석 내역이 없습니다.")
+        st.info("아직 분석 기록이 없습니다.")
     else:
         col_sort1, col_sort2, col_del = st.columns([2, 2, 1])
 
@@ -386,7 +386,7 @@ with tab2:
             sort_order = st.selectbox("정렬 방향", ["내림차순", "오름차순"])
         with col_del:
             st.write("<div style='padding-top: 24px;'></div>", unsafe_allow_html=True)
-            if st.button("공용 데이터 비우기"):
+            if st.button("데이터 비우기"):
                 if conn is not None:
                     try:
                         with conn.session as session:
@@ -420,9 +420,9 @@ with tab2:
 # --- 3번 탭: 판별 기준 안내 ---
 with tab3:
     st.markdown("## 시스템 판독 기준 및 알고리즘 안내")
-    st.write("본 시스템은 '주 소비 고객층의 성별 편중성'을 악용한 숨겨진 마케팅 거품까지 공정하게 진단하기 위해 **4단계 검증 과정**을 거칩니다.")
+    st.write("본 시스템은 '주 소비 고객층의 성별 편중성'을 악용한 숨겨진 마케팅 거품을 공정하게 진단하기 위해 **4단계 검증 과정**을 거칩니다.")
     st.markdown("---")
-    st.write("**[ 위험도 단계 표준 벤치마크 ]**")
+    st.write("**[ 위험도 단계 표준 그래프 ]**")
     fig_guide = draw_gauge_chart()
     st.pyplot(fig_guide)
     st.markdown("---")
