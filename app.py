@@ -232,8 +232,8 @@ st.markdown("""
 <div style="background-color: #FFF5F7; border: 1px solid #FF1493; border-left: 6px solid #FF1493; padding: 16px; border-radius: 6px; margin-top: 10px; margin-bottom: 20px;">
     <p style="color: #FF1493; margin: 0 0 6px 0; font-weight: bold; font-size: 17px;">💡 핑크택스(Pink Tax)란?</p>
     <p style="color: #333333; margin: 0; line-height: 1.6; font-size: 14.5px;">
-        동일한 성분, 기능, 용량의 제품·서비스임에도 단순히 <b>'여성용'</b> 마케팅 라벨이나 디자인이 적용되었다는 이유로 가격이 더 비싸지는 <b>성별 기반 가격 차별 현상</b>을 뜻합니다.<br>
-        <small style="color: #777777; font-style: italic;">(이와 반대로 남성향 마케팅으로 가격 거품을 형성하는 현상은 '블루택스'라고 합니다.)</small>
+        차이가 거의 없는 유사한 성분, 기능, 용량의 제품·서비스임에도 단순히 <b>'여성용'</b> 마케팅 라벨이나 디자인이 적용되었다는 이유로 가격이 더 비싸지는 <b>성별 기반 가격 차별 현상</b>을 뜻합니다.<br>
+        <small style="color: #777777; font-style: italic;">(이와 반대로 남성향 마케팅으로 가격 거품이 형성되는 현상은 '블루택스'입니다.)</small>
     </p>
 </div>
 """, unsafe_allow_html=True)
