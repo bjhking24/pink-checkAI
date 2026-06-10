@@ -27,10 +27,8 @@ def set_korean_font():
 set_korean_font()
 
 # 💡 [다른 사람들과 기록을 공유하는 클라우드 DB 연결]
-# Streamlit 내장 SQL 연결 기능을 사용하여 공용 데이터베이스를 생성합니다.
 try:
     conn = st.connection("secrets_db", type="sql")
-    # 테이블이 없으면 생성 (시간, 제품명, 위험도점수, 리포트내용)
     with conn.session as session:
         session.execute("""
             CREATE TABLE IF NOT EXISTS pinktax_history (
@@ -43,7 +41,6 @@ try:
         """)
         session.commit()
 except Exception:
-    # 만약 DB 바인딩이 안 된 로컬 환경일 경우를 대비한 백업 세션 스토리지
     if "history" not in st.session_state:
         st.session_state.history = []
     conn = None
@@ -270,7 +267,8 @@ with st.sidebar:
     )
 
     if ai_provider == "Google Gemini":
-        model_choice = st.selectbox("분석 모델", ["gemini-2.5-flash", "gemini-2.5-pro"], index=1)
+        # 🛠️ index를 1에서 0으로 변경하여 gemini-2.5-flash가 기본으로 열리도록 수정
+        model_choice = st.selectbox("분석 모델", ["gemini-2.5-flash", "gemini-2.5-pro"], index=0)
     else:
         model_choice = st.selectbox("분석 모델", ["google/gemma-2-27b-it"], index=0)
 
@@ -344,7 +342,6 @@ with tab1:
 
                     current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
-                    # 💡 클라우드 데이터베이스에 실시간 영구 추가
                     if conn is not None:
                         try:
                             with conn.session as session:
@@ -363,12 +360,11 @@ with tab1:
                     st.markdown("---")
                     st.caption("본 분석 리포트는 알고리즘 기반 예측물이며 법적 효력을 가지지 않습니다.")
 
-# --- 2번 탭: 판독 기록 히스토리 (전체 사용자 공유 버전) ---
+# --- 2번 탭: 판독 기록 히스토리 ---
 with tab2:
     st.header("실시간 판독 기록 히스토리")
     st.write("본 서비스 전체 사용자가 실시간으로 분석한 빅데이터 내역이 공유되어 누적됩니다.")
 
-    # 💡 클라우드 DB로부터 전체 데이터 호출
     history_to_display = []
     if conn is not None:
         try:
