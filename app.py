@@ -248,7 +248,7 @@ with st.sidebar:
     st.markdown("---")
 
     ai_provider = st.selectbox(
-        "메인 AI 엔진 선택 (실시간 구글링은 Google Gemini 권장)",
+        "메인 AI 엔진 선택 (실시간 검색은 Gemini 권장)",
         ["Google Gemini", "OpenRouter (Gemma 2)"]
     )
 
@@ -259,13 +259,13 @@ with st.sidebar:
         model_choice = st.selectbox("분석 모델", ["google/gemma-2-27b-it"], index=0)
 
 # 화면 탭 구성
-tab1, tab2, tab3 = st.tabs(["제품 판별기", "판독 기록", "판별 기준 안내"])
+tab1, tab2, tab3 = st.tabs(["제품 분석", "분석 기록", "판독 기준 안내"])
 
 # --- 1번 탭: 제품 판별기 ---
 with tab1:
     if ai_provider == "Google Gemini":
         product_name_input = st.text_input("제품명을 입력하세요 (사진 업로드 시 생략 가능)", placeholder="")
-        uploaded_file = st.file_uploader("제품 사진, 성분표 또는 라벨을 업로드하세요", type=["jpg", "jpeg", "png"])
+        uploaded_file = st.file_uploader("제품 사진, 또는 성분표를 업로드하세요", type=["jpg", "jpeg", "png"])
     else:
         product_name_input = st.text_input("제품명을 입력하세요", placeholder="")
         uploaded_file = None
@@ -280,7 +280,7 @@ with tab1:
         elif ai_provider == "OpenRouter (Gemma 2)" and not final_product_name:
             st.warning("제품명을 입력해 주세요.")
         else:
-            with st.spinner("AI가 주 소비층 통계와 구글 검색 결과를 바탕으로 통합 분석하고 있습니다..."):
+            with st.spinner("AI가 소비층 통계와 제품 검색 결과를 바탕으로 종합적으로 분석하고 있습니다..."):
                 image_bytes = None
                 mime_type = None
                 if uploaded_file is not None:
@@ -324,7 +324,7 @@ with tab1:
                         if name_match:
                             log_name = name_match.group(1).strip()
                         else:
-                            log_name = "식별된 사진 분석 상품"
+                            log_name = "사진"
 
                     current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
@@ -335,15 +335,15 @@ with tab1:
                         "report": ai_text
                     })
                     st.markdown("---")
-                    st.caption("본 분석 리포트는 알고리즘 기반 예측물이며 법적 효력을 가지지 않습니다.")
+                    st.caption("본 리포트는 알고리즘 기반 예측물이며 법적 효력을 가지지 않습니다.")
 
 # --- 2번 탭: 판독 기록 히스토리 ---
 with tab2:
-    st.header("실시간 판독 기록 히스토리")
-    st.write("본 세션 동안 분석이 완료된 제품들의 기록이 누적됩니다. (페이지를 새로고침하면 초기화됩니다)")
+    st.header("분석 기록 보관")
+    st.write("본 세션 동안 분석된 제품들의 기록이 누적됩니다. (페이지를 새로고침하면 초기화됩니다)")
 
     if not st.session_state.history:
-        st.info("아직 분석된 내역이 없습니다. '제품 판별기' 탭에서 첫 번째 분석을 시작해 보세요!")
+        st.info("아직 분석된 내역이 없습니다. '제품 분석' 탭에서 첫 번째 분석을 시작해 보세요!")
     else:
         col_sort1, col_sort2, col_del = st.columns([2, 2, 1])
 
@@ -381,9 +381,9 @@ with tab2:
 # --- 3번 탭: 판별 기준 안내 ---
 with tab3:
     st.markdown("## 시스템 판독 기준 및 알고리즘 안내")
-    st.write("본 시스템은 '주 소비 고객층의 성별 편중성'을 악용한 숨겨진 마케팅 거품까지 공정하게 진단하기 위해 **4단계 검증 과정**을 거칩니다.")
+    st.write("본 시스템은 '주 소비 고객층의 성별 편중성'을 악용한 숨겨진 마케팅 거품을 공정하게 진단하기 위해 **4단계 검증 과정**을 거칩니다.")
     st.markdown("---")
-    st.write("**[ 위험도 단계 표준 벤치마크 ]**")
+    st.write("**[ 위험도 단계 표준 그래프 ]**")
     fig_guide = draw_gauge_chart()
     st.pyplot(fig_guide)
     st.markdown("---")
