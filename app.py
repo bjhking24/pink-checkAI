@@ -226,7 +226,7 @@ def call_pinktax_api(product_name, product_details, image_bytes, mime_type, ai_p
 st.title("PINK-Check AI")
 
 # 서브타이틀 글자 크기를 타이틀과 조화롭도록 스타일 주입하여 소폭 축소
-st.markdown("<h4 style='font-weight: 500; color: #555555; margin-bottom: 15px;'>AI를 활용한 젠더 마케팅 판별 시스템</h4>", unsafe_allow_html=True)
+st.markdown("<h4 style='font-weight: 500; color: #555555; margin-bottom: 15px;'>AI 활용 젠더 마케팅 판별 시스템</h4>", unsafe_allow_html=True)
 
 st.markdown("""
 <div style="background-color: #FFF5F7; border: 1px solid #FF1493; border-left: 6px solid #FF1493; padding: 16px; border-radius: 6px; margin-top: 10px; margin-bottom: 20px;">
