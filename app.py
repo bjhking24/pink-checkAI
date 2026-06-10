@@ -279,12 +279,12 @@ tab1, tab2, tab3 = st.tabs(["제품 판독", "판독 기록", "판독 기준 안
 with tab1:
     if ai_provider == "Google Gemini":
         product_name_input = st.text_input("제품명을 입력하세요 (사진 업로드 시 생략 가능)", placeholder="")
-        uploaded_file = st.file_uploader("제품 사진, 성분표 또는 라벨을 업로드하세요", type=["jpg", "jpeg", "png"])
+        uploaded_file = st.file_uploader("제품 사진 또는 성분표 업로드하세요", type=["jpg", "jpeg", "png"])
     else:
         product_name_input = st.text_input("제품명을 입력하세요", placeholder="")
         uploaded_file = None
 
-    product_details = st.text_area("가격, 용량(중량), 주 소비 고객층에 대해 아시는 정보나 의견을 적어주세요 (선택사항)", placeholder="")
+    product_details = st.text_area("가격, 용량(중량), 주 소비층에 대한 정보 정보나 의견을 적어주세요 (선택사항)", placeholder="")
 
     if st.button("분석 시작"):
         final_product_name = get_standard_name(product_name_input)
